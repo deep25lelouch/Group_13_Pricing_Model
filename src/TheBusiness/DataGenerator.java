@@ -27,6 +27,8 @@ import java.util.ArrayList;
 public class DataGenerator {
 
     //08-11-2025_RijurikSaha
+    
+    
     private Faker faker;
     private Business business;
 
