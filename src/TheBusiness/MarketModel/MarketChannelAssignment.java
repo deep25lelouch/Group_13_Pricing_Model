@@ -19,6 +19,7 @@ public class MarketChannelAssignment {
     int adbudget;
     int targetrevenue;
 //int targetrevenue;
+    // List of solution offers designed for this specific market–channel combination
     ArrayList<SolutionOffer> solutionofferlist;
     ArrayList<SolutionOrder> solutionorderlist;
     ArrayList<String> admessages; ///Benefits--language we use to speak to customer
@@ -51,7 +52,8 @@ public class MarketChannelAssignment {
         
         
     }
-    //specific to the market/channel combination (teenagers, Tiktok). 
+    //specific to the market/channel combination (teenagers, Tiktok).
+    // Checks if the total revenue from solution orders has met or exceeded the target
     public boolean isTargetRevenueMet(){
         
         if(getTargetRevenue()<getRevenues()) return true;
