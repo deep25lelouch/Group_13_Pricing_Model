@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author kal bugrara
  */
 public class MarketCatalog {
-
+// Holds all markets created in the catalog
     ArrayList<Market> markets;
     // constructor  MarketCatalog 
 
@@ -22,7 +22,7 @@ public class MarketCatalog {
         markets = new ArrayList();
 
     }
-
+// Creates a new market with the given name and adds it to the catalog
     public Market newMarket(String m) {
 
         Market market = new Market(m);
