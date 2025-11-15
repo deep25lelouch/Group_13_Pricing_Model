@@ -19,6 +19,7 @@ import TheBusiness.Supplier.Supplier;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -423,25 +424,61 @@ public class ProcessOrder extends javax.swing.JPanel {
 
     private void AddProductItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductItemActionPerformed
         // TODO add your handling code here:
+        // change by deep 11/11
+        // 1. Get the selected product from the table
+    int suppliertablesize = SupplierCatalogTable.getRowCount();
+    int selectedrow = SupplierCatalogTable.getSelectionModel().getLeadSelectionIndex();
 
-        int suppliertablesize = SupplierCatalogTable.getRowCount(); 
-        int selectedrow = SupplierCatalogTable.getSelectionModel().getLeadSelectionIndex();
+    if (selectedrow < 0 || selectedrow > suppliertablesize - 1) {
+        JOptionPane.showMessageDialog(this, "Please select a product from the table first.", "No Product Selected", JOptionPane.WARNING_MESSAGE);
+        return; //no thanks
+    }
+    
+    selectedproduct = (Product) SupplierCatalogTable.getValueAt(selectedrow, 0);
+    if (selectedproduct == null) return;
 
-        if (selectedrow < 0 || selectedrow > suppliertablesize - 1) {
-            return; //no thanks
+    // 2. Ask the user for quantity and actual price
+    int quantity = 0;
+    int actualPrice = 0;
+
+    try {
+        // --- ASK FOR QUANTITY ---
+        String qtyString = JOptionPane.showInputDialog(this, "Enter quantity:", "Input Quantity", JOptionPane.QUESTION_MESSAGE);
+        if (qtyString == null) return; // User clicked "Cancel"
+        quantity = Integer.parseInt(qtyString);
+        if (quantity <= 0) {
+            JOptionPane.showMessageDialog(this, "Quantity must be greater than 0.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        selectedproduct = (Product) SupplierCatalogTable.getValueAt(selectedrow, 0);
-        if (selectedproduct == null) return;
-        
-        OrderItem item = currentOrder.newOrderItem(selectedproduct, 1000, 1);
-            Object[] row = new Object[5];
 
-            row[0] = String.valueOf(item.getSelectedProduct());
-            row[1] = String.valueOf(item.getActualPrice());
-            row[2] = String.valueOf(item.getQuantity());
-            row[3] = String.valueOf(item.getOrderItemTotal());
+        // --- ASK FOR ACTUAL PRICE ---
+        String priceString = JOptionPane.showInputDialog(this, "Enter actual price per item:", "Input Price", JOptionPane.QUESTION_MESSAGE);
+        if (priceString == null) return; // User clicked "Cancel"
+        actualPrice = Integer.parseInt(priceString);
 
-            ((DefaultTableModel) OrderItemsTable.getModel()).addRow(row);
+        // --- VALIDATE THE PRICE ---
+        int floor = selectedproduct.getFloorPrice();
+        int ceiling = selectedproduct.getCeilingPrice();
+        if (actualPrice < floor || actualPrice > ceiling) {
+            JOptionPane.showMessageDialog(this, "Actual price must be within the product's range:\nFloor: " + floor + "\nCeiling: " + ceiling, "Price Out of Range", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter valid numbers.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // 3. Add the item to the order and the order items table
+    OrderItem item = currentOrder.newOrderItem(selectedproduct, actualPrice, quantity);
+    Object[] row = new Object[4]; // Your OrderItemsTable has 4 columns
+
+    row[0] = item.getSelectedProduct().toString();
+    row[1] = item.getActualPrice();
+    row[2] = item.getQuantity();
+    row[3] = item.getOrderItemTotal();
+
+    ((DefaultTableModel) OrderItemsTable.getModel()).addRow(row);
  
             
 

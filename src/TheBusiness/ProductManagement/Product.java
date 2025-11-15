@@ -17,12 +17,15 @@ public class Product {
     private int floorPrice;
     private int ceilingPrice;
     private int targetPrice;
+    //11/11/2025 deep
+    private int originalTargetPrice;
     ArrayList<OrderItem> orderitems;
         public Product( int fp, int cp, int tp) {
 
         floorPrice = fp;
         ceilingPrice = cp;
         targetPrice = tp;
+        this.originalTargetPrice = tp; //this added by deep
         orderitems = new ArrayList();
         
     }
@@ -31,6 +34,7 @@ public class Product {
         floorPrice = fp;
         ceilingPrice = cp;
         targetPrice = tp;
+        this.originalTargetPrice = tp; //Same change deep
         orderitems = new ArrayList();
     }
         public Product updateProduct(int fp, int cp, int tp) {
@@ -66,6 +70,9 @@ public class Product {
         }
         return true;
     }
+    public int getOriginalTargetPrice() {
+        return originalTargetPrice; 
+    }   
     //calculates the revenues gained or lost (in relation to the target)
     //For example, if target is at $2000 and actual is $2500 then revenue gained
     // is $500 above the expected target. If the actual is $1800 then the lose will be $200
@@ -88,6 +95,8 @@ public class Product {
     public void setName(String n){
         name = n;
     }
+    
+    
     @Override
     public String toString(){
         return name;

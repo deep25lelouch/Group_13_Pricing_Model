@@ -16,6 +16,7 @@ import UserInterface.Main.WorkSpaceProfiles.BusinessManagerWorkAreaJPanel;
 import UserInterface.Main.WorkSpaceProfiles.MarketingManagerWorkAreaJPanel1;
 import UserInterface.Main.WorkSpaceProfiles.SalesPersonWorkAreaJPanel;
 import javax.swing.JPanel;
+import TheBusiness.ConfigureABusiness; // Use the ConfigureABusiness from TheBusiness package
 
 /**
  *
@@ -31,7 +32,7 @@ public class PricingMainFrame extends javax.swing.JFrame {
 
     public PricingMainFrame() {
         initComponents();
-        business = ConfigureABusiness.initialize();
+        business = TheBusiness.ConfigureABusiness.initialize(); // Point to the correct file
 
     }
 
