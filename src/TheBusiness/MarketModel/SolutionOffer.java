@@ -38,7 +38,7 @@ public class SolutionOffer {
     public int getSolutionPrice(){
         return price;
     }
-    
+    // Calculates total revenue earned from all orders of this solution offer
     public int getRevenues(){
         int sum = 0;
         for(SolutionOrder so: solutionorders){
