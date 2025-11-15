@@ -12,11 +12,15 @@ import java.util.ArrayList;
  * @author kal bugrara
  */
 public class ChannelCatalog {
+    // Maintains a list of all channels available in the business
     ArrayList<Channel> channellist ;
+
+    // Constructor initializes the channel list when the catalog is created
     public ChannelCatalog(){
     channellist = new ArrayList();
     }
     
+    // Creates a new channel with the given type and adds it to the catalog
     public Channel newChannel(String type){
         
         Channel c = new Channel(type);

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author kal bugrara
  */
 public class SolutionOfferCatalog {
-
+// Stores all solution offers in the system
     ArrayList<SolutionOffer> solutionoffers;
 
     public SolutionOfferCatalog() {
@@ -30,6 +30,7 @@ public class SolutionOfferCatalog {
     
 
     //return all solution offers that match m/c combination
+    
     public ArrayList<SolutionOffer> findSolutionsForMarketChannelCombo(MarketChannelAssignment mcc) {
         ArrayList<SolutionOffer> foundsolutions = new ArrayList();
 

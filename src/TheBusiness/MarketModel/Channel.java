@@ -18,6 +18,7 @@ public class Channel {
         if (channeltype.equalsIgnoreCase(t))return true;
         else return false;
     }
+    //getters
     public String getChannelType( ){
         return channeltype;
     }
