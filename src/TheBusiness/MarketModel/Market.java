@@ -18,7 +18,7 @@ public class Market {
     ArrayList<String> characteristics; //a way to describe in plain language what is that group
     ArrayList<Market> submarkets;
     int size;
-
+    // Constructor initializes a market with a name and empty lists for its properties
     public Market(String m) {
         name = m;
         characteristics = new ArrayList();
@@ -29,7 +29,7 @@ public class Market {
     public void addCharactersitic(String c) {
         characteristics.add(c);
     }
-
+// Registers a channel as valid for reaching this market
     public void addValidChannel(Channel c) {
 
         validchannels.add(c);
