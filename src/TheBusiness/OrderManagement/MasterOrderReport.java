@@ -16,6 +16,7 @@ public class MasterOrderReport {
         
     }
     public void generateOrderReport(ArrayList<Order> orders){
+            // Initializes an empty list to store order summaries
         ArrayList<Order> orderlist = orders;
         OrderSummary ordersummary ;
         for(Order order: orderlist){
@@ -23,6 +24,7 @@ public class MasterOrderReport {
             ordersummarylist.add(ordersummary);
         }         
     }
+    // Finds and returns the most profitable order based on order profit
     
     public OrderSummary getTopProfitableOrder(){ //most profitable order
         OrderSummary currenttoporder = null;
