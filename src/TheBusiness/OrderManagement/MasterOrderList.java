@@ -44,7 +44,7 @@ public class MasterOrderList {
     return masterorderreport;
         
 }
-
+// Calculates and returns the total sales volume across all orders
 public int getSalesVolume(){
 
 int sum = 0;
