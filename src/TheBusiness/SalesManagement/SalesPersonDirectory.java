@@ -40,7 +40,11 @@ public class SalesPersonDirectory {
                 return sp;
             }
         }
-            return null; //not found after going through the whole list
-         }
+        return null; //not found after going through the whole list
+    }
 
+    //08-11-2025_RijurikSaha
+    public ArrayList<SalesPersonProfile> getSalesPersonList() {
+        return salespersonlist;
+    }
 }

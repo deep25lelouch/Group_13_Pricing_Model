@@ -16,6 +16,7 @@ import TheBusiness.Personnel.PersonDirectory;
 import TheBusiness.ProductManagement.ProductSummary;
 import TheBusiness.ProductManagement.ProductsReport;
 import TheBusiness.MarketModel.SolutionOfferCatalog;
+import TheBusiness.Personnel.EmployeeDirectory;
 import TheBusiness.SolutionOrders.MasterSolutionOrderList;
 import TheBusiness.SalesManagement.SalesPersonDirectory;
 import TheBusiness.Supplier.Supplier;
@@ -38,7 +39,7 @@ public class Business {
     MarketChannelComboCatalog marketChannelComboCatalog;
     SolutionOfferCatalog solutionoffercatalog;
     CustomerDirectory customerdirectory;
-    // EmployeeDirectory employeedirectory;
+    EmployeeDirectory employeedirectory;
     SalesPersonDirectory salespersondirectory;
     UserAccountDirectory useraccountdirectory;
     MarketingPersonDirectory marketingpersondirectory;
@@ -55,7 +56,7 @@ public class Business {
         salespersondirectory = new SalesPersonDirectory(this);
         useraccountdirectory = new UserAccountDirectory();
         marketingpersondirectory = new MarketingPersonDirectory(this);
-
+        employeedirectory = new EmployeeDirectory(this);
         marketcatalog = new MarketCatalog();
 
         channelcatalog = new ChannelCatalog();
@@ -144,8 +145,8 @@ public class Business {
     public MasterSolutionOrderList getMasterSolutionOrderList(){
         return mastersolutionorderlist;
     }
-    //       public EmployeeDirectory getEmployeeDirectory() {
-    //      return employeedirectory;
-    //  }
+    public EmployeeDirectory getEmployeeDirectory() {
+        return employeedirectory;
+    }
 
 }

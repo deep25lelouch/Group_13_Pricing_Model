@@ -13,6 +13,10 @@ import TheBusiness.Supplier.Supplier;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import UserInterface.ProductManagement.AdjustTargetPriceJPanel; // Or your full package path
+import javax.swing.JOptionPane;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  *
@@ -33,81 +37,75 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
         this.business = bz;
         initComponents();
         initializeTable();
-
-    }
-
-    public void initializeTable() {
-
-//clear supplier table
-        SuppliersComboBox.removeAllItems();
-
-        int rc = SupplierCatalogTable.getRowCount();
-        int i;
-        for (i = rc - 1; i >= 0; i--) {
-            ((DefaultTableModel) SupplierCatalogTable.getModel()).removeRow(i);
-        }
-//load suppliers to the combobox
-
-        ArrayList<Supplier> supplierlist = business.getSupplierDirectory().getSuplierList();
-
-        if (supplierlist.isEmpty()) {
-            return;
-        }
-        for (Supplier s : supplierlist) {
-            SuppliersComboBox.addItem(s.toString());
-            SuppliersComboBox.setSelectedIndex(0);
-
-            String suppliername = (String) SuppliersComboBox.getSelectedItem();
-
-            selectedsupplier = business.getSupplierDirectory().findSupplier(suppliername);
-
-            ProductCatalog pc = selectedsupplier.getProductCatalog();
-
-            for (Product pt : pc.getProductList()) {
-
-                Object[] row = new Object[5];
-                row[0] = pt;
-                row[1] = pt.getFloorPrice();
-                row[2] = pt.getCeilingPrice();
-                row[3] = pt.getTargetPrice();
-//                row[1] = pt.getPerformanceMeasure();
-//               row[2] = la.getName();
-                ((DefaultTableModel) SupplierCatalogTable.getModel()).addRow(row);
+        // by deep 11/11
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                // When the panel is shown, refresh the table to get new prices
+                refreshTable();
             }
+        });
 
-        }
+    }
+// change by deep 11/11
+    public void initializeTable() {
+    //clear supplier table
+    SuppliersComboBox.removeAllItems();
+
+    //load suppliers to the combobox
+    ArrayList<Supplier> supplierlist = business.getSupplierDirectory().getSuplierList();
+
+    if (supplierlist.isEmpty()) {
+        return;
+    }
+    
+    for (Supplier s : supplierlist) {
+        SuppliersComboBox.addItem(s.toString());
     }
 
+    // Set the default selection and load the table for the FIRST supplier
+    SuppliersComboBox.setSelectedIndex(0);
+    refreshTable(); // Now we call refreshTable() to load the first supplier's data
+}
+// change by deep 11/11
     public void refreshTable() {
-
-//clear supplier table
-        int rc = SupplierCatalogTable.getRowCount();
-        int i;
-        for (i = rc - 1; i >= 0; i--) {
-            ((DefaultTableModel) SupplierCatalogTable.getModel()).removeRow(i);
-        }
-
-        String suppliername = (String) SuppliersComboBox.getSelectedItem();
-
-        selectedsupplier = business.getSupplierDirectory().findSupplier(suppliername);
-        if (selectedsupplier == null) {
-            return;
-        }
-        ProductCatalog pc = selectedsupplier.getProductCatalog();
-
-        for (Product pt : pc.getProductList()) {
-
-            Object[] row = new Object[5];
-            row[0] = pt;
-            row[1] = pt.getFloorPrice();
-            row[2] = pt.getCeilingPrice();
-            row[3] = pt.getTargetPrice();
-//                row[1] = pt.getPerformanceMeasure();
-//               row[2] = la.getName();
-            ((DefaultTableModel) SupplierCatalogTable.getModel()).addRow(row);
-        }
-
+    //clear supplier table
+    int rc = SupplierCatalogTable.getRowCount();
+    for (int i = rc - 1; i >= 0; i--) {
+        ((DefaultTableModel) SupplierCatalogTable.getModel()).removeRow(i);
     }
+
+    // Clear the bottom summary fields
+    productNameTextField.setText("");
+    productFrequencyAboveTargetTextField.setText("");
+    productFrequencyBelowTargetTextField.setText("");
+    productRevenueTextField.setText("");
+    productPricePerformanceTextField.setText("");
+    selectedproduct = null; // De-select the product
+
+    // Get the selected supplier
+    String suppliername = (String) SuppliersComboBox.getSelectedItem();
+    if (suppliername == null) {
+        return;
+    }
+    
+    selectedsupplier = business.getSupplierDirectory().findSupplier(suppliername);
+    if (selectedsupplier == null) {
+        return;
+    }
+    
+    // Repopulate the table
+    ProductCatalog pc = selectedsupplier.getProductCatalog();
+    for (Product pt : pc.getProductList()) {
+        Object[] row = new Object[5]; // Should be 4, but your table model has 5 columns?
+        row[0] = pt;
+        row[1] = pt.getFloorPrice();
+        row[2] = pt.getCeilingPrice();
+        row[3] = pt.getTargetPrice();
+        // row[4] is empty in your model
+        ((DefaultTableModel) SupplierCatalogTable.getModel()).addRow(row);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -255,10 +253,16 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
 
     private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
         // TODO add your handling code here:
-        
-        ManageProductPerformanceDetail mppd = new ManageProductPerformanceDetail(selectedproduct, CardSequencePanel);
-        CardSequencePanel.add(mppd);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        //11/11/2025 deep
+        if (selectedproduct == null) {
+        JOptionPane.showMessageDialog(this, "Please select a product from the table first.", "No Product Selected", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Create and navigate to our new adjustment panel
+    AdjustTargetPriceJPanel atpPanel = new AdjustTargetPriceJPanel(selectedproduct, CardSequencePanel);
+    CardSequencePanel.add("AdjustTargetPrice", atpPanel);
+    ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_NextActionPerformed
 
