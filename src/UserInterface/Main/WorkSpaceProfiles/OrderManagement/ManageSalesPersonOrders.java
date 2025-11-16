@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class ManageSalesPersonOrders extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageSuppliersJPanel
+     * Creates new form ManageSuppliersJPanel by deep
      */
     JPanel CardSequencePanel;
     Business business;

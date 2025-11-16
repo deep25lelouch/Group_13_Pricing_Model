@@ -28,7 +28,7 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
     SalesPersonProfile salesperson;
 
     /**
-     * Creates new form UnitRiskWorkArea
+     * Creates new form UnitRiskWorkArea by deep
      * @param b
      * @param spp
      * @param clp

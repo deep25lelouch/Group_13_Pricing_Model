@@ -59,7 +59,7 @@ public class ProcessOrder extends javax.swing.JPanel {
         cleanUpCombobox();
         cleanUpTable();
 
-//load suppliers to the combobox
+//load suppliers to the combobox and then go
         ArrayList<Supplier> supplierlist = business.getSupplierDirectory().getSuplierList();
 
         if (supplierlist.isEmpty()) {
