@@ -33,7 +33,7 @@ public class ManageProductPerformanceDetail extends javax.swing.JPanel {
 
     }
 
-
+//refresh table logic
     public void refreshTable() {
 
        
