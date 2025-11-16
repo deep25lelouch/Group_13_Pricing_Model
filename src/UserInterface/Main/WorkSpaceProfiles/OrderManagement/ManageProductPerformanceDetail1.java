@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 public class ManageProductPerformanceDetail1 extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageSuppliersJPanel
+     * Creates new form ManageSuppliersJPanel made by deep
      */
     JPanel CardSequencePanel;
     Supplier selectedsupplier;
