@@ -25,7 +25,7 @@ public class BusinessManagerWorkAreaJPanel extends javax.swing.JPanel {
     Business business;
 
     /**
-     * Creates new form UnitRiskWorkArea
+     * Creates new form UnitRiskWorkArea by deep
      */
 
     public BusinessManagerWorkAreaJPanel(Business b, JPanel clp) {
