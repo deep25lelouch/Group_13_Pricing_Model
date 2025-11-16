@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author deep2
+ * @author deep25
  */
 public class AdjustTargetPriceJPanel extends javax.swing.JPanel {
 
@@ -36,9 +36,7 @@ public class AdjustTargetPriceJPanel extends javax.swing.JPanel {
 
     public void refreshTable() {
 
-       
         ProductSummary productsummary = new ProductSummary(selectedproduct);
-
         productNameTextField.setText(selectedproduct.toString());
         String revenues = String.valueOf(productsummary.getSalesRevenues());
         productRevenueTextField.setText(revenues);
@@ -47,8 +45,7 @@ public class AdjustTargetPriceJPanel extends javax.swing.JPanel {
         productPricePerformanceTextField.setText(String.valueOf(productsummary.getProductPricePerformance()));
 
     }
-
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
