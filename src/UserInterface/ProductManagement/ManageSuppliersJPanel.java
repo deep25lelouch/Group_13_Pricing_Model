@@ -37,7 +37,7 @@ public class ManageSuppliersJPanel extends javax.swing.JPanel {
         this.business = bz;
         initComponents();
         initializeTable();
-        // by deep 11/11
+        // by deep 12/11
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentShown(ComponentEvent e) {
