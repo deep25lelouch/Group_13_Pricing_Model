@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author deep2 at 11/11/2025
+ * @author deep25 at 11/11/2025
  */
 public class FinalPerformanceReportJPanel extends javax.swing.JPanel {
     private JPanel CardSequencePanel;
@@ -167,7 +167,6 @@ public class FinalPerformanceReportJPanel extends javax.swing.JPanel {
             row[4] = summary.getSalesRevenues();
             row[5] = summary.getNumberAboveTarget();
             row[6] = summary.getNumberBelowTarget();
-
             dtm.addRow(row);
         }
     }
